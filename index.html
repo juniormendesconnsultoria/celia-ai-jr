@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CÉLIA AI | Intelligence 360</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#07111f;color:#eaf2ff;font-family:Arial,sans-serif}
+header{padding:22px;background:#101f35;border-bottom:1px solid #24405f}
+header h1{margin:0;color:#51c8ff;font-size:25px}
+header p{color:#9cb5ce;font-size:12px}
+main{padding:16px;max-width:950px;margin:auto}
+.tag{color:#50d9bd;font-size:12px}
+h2{font-size:19px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:#11233a;border:1px solid #29435f;border-radius:12px;padding:16px;margin-bottom:12px}
+.number{font-size:27px;color:#54caff;font-weight:bold}
+small{color:#a7bdd3}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}
+button{background:#173b5c;color:white;border:1px solid #3475a0;padding:12px;border-radius:8px;cursor:pointer}
+button.active,button:hover{background:#087eb6}
+input,textarea{width:100%;padding:12px;background:#091729;border:1px solid #35516c;color:white;border-radius:8px;margin:8px 0}
+section{display:none}
+section.active{display:block}
+#chat{height:180px;overflow:auto;background:#091729;padding:12px;border-radius:8px;margin:10px 0}
+footer{text-align:center;color:#8299b1;padding:25px;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+<div class="tag">JR TECHNOLOGY • CENTRAL INTELLIGENCE</div>
+<h1>◈ CÉLIA AI</h1>
+<p>INTELIGÊNCIA OPERACIONAL | GESTÃO 360°</p>
+</header>
+<main>
+<div class="card">
+<div class="tag">● SISTEMA ONLINE — MODO DEMONSTRAÇÃO</div>
+<h2>Central de Inteligência 360°</h2>
+<small>Monitoramento, análise de riscos e gestão operacional.</small>
+</div>
+
+<div class="grid">
+<div class="card">Ocorrências registradas<div class="number" id="total">0</div></div>
+<div class="card">Alertas operacionais<div class="number" id="alerts">0</div></div>
+<div class="card">Análises realizadas<div class="number" id="analyses">0</div></div>
+<div class="card">Status da central<div class="number">ATIVA</div></div>
+</div>
+
+<nav>
+<button class="active" onclick="show('inicio',this)">Painel</button>
+<button onclick="show('riscos',this)">Análise de riscos</button>
+<button onclick="show('ocorrencias',this)">Ocorrências</button>
+<button onclick="show('assistente',this)">CÉLIA AI</button>
+</nav>
+
+<section id="inicio" class="active">
+<div class="card">
+<h2>Visão operacional</h2>
+<p>Bem-vindo à Central de Inteligência JR.</p>
+<p>O sistema permitirá acompanhar equipes, rondas, ocorrências e indicadores operacionais.</p>
+</div>
+<div class="card">
+<h2>Módulos de inteligência</h2>
+<p>◈ Gestão de equipes</p>
+<p>◈ Monitoramento de rondas</p>
+<p>◈ Controle de ocorrências</p>
+<p>◈ Indicadores de desempenho</p>
+<p>◈ Relatórios gerenciais</p>
+</div>
+</section>
+
+<section id="riscos">
+<div class="card">
+<h2>Análise de riscos</h2>
+<textarea id="risk" placeholder="Descreva a situação ou o risco identificado..."></textarea>
+<button onclick="analyze()">Analisar situação</button>
+<div id="riskresult"></div>
+</div>
+</section>
+
+<section id="ocorrencias">
+<div class="card">
+<h2>Registro de ocorrência</h2>
+<input id="local" placeholder="Local da ocorrência">
+<input id="tipo" placeholder="Tipo de ocorrência">
+<textarea id="descricao" placeholder="Descrição detalhada"></textarea>
+<button onclick="register()">Registrar ocorrência</button>
+<div id="history"></div>
+</div>
+</section>
+
+<section id="assistente">
+<div class="card">
+<h2>◈ Assistente CÉLIA</h2>
+<small>Assistente operacional — demonstração local</small>
+<div id="chat">CÉLIA: Olá! Sou a CÉLIA AI. Como posso ajudar na gestão operacional?</div>
+<input id="question" placeholder="Digite sua pergunta...">
+<button onclick="ask()">Enviar mensagem</button>
+</div>
+</section>
+</main>
+<footer>
+JR ANÁLISES E TECNOLOGIA<br>
+CÉLIA AI • CENTRAL DE INTELIGÊNCIA 360°<br>
+© 2026
+</footer>
+<script>
+let total=0,alerts=0,analyses=0;
+
+function show(id,btn){
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+}
+
+function register(){
+let l=document.getElementById('local').value;
+let t=document.getElementById('tipo').value;
+let d=document.getElementById('descricao').value;
+if(!l||!t||!d){alert('Preencha todos os campos');return}
+total++;alerts++;
+document.getElementById('total').textContent=total;
+document.getElementById('alerts').textContent=alerts;
+document.getElementById('history').innerHTML+=
+'<div class="card"><b>'+t+'</b><p>'+l+'</p><small>'+d+'</small></div>';
+document.getElementById('local').value='';
+document.getElementById('tipo').value='';
+document.getElementById('descricao').value='';
+}
+
+function analyze(){
+let r=document.getElementById('risk').value;
+if(!r){alert('Descreva o risco primeiro');return}
+analyses++;
+document.getElementById('analyses').textContent=analyses;
+document.getElementById('riskresult').innerHTML=
+'<div class="card"><b>Análise preliminar</b><p>Informação recebida e registrada para avaliação.</p><small>Classificação de risco e recomendações automáticas serão disponibilizadas na integração com a IA.</small></div>';
+}
+
+function ask(){
+let q=document.getElementById('question').value;
+if(!q)return;
+let chat=document.getElementById('chat');
+chat.innerHTML+='<p><b>Você:</b> '+q.replace(/</g,'&lt;')+'</p>';
+chat.innerHTML+='<p><b>CÉLIA:</b> Sou a assistente de demonstração. Posso apoiar a organização de ocorrências, análise de riscos e gestão operacional. A inteligência conectada será ativada na próxima etapa.</p>';
+document.getElementById('question').value='';
+chat.scrollTop=chat.scrollHeight;
+}
+</script>
+</body>
+</html>
